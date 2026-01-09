@@ -1,39 +1,37 @@
 #include <stdio.h>
-#include <math.h>
 
-struct Factor {
-    int prime;
-    int exp;
+struct F {
+    int p;
+    int e;
 };
 
 int main() {
-    int n;
+    int n, c = 0;
     scanf("%d", &n);
 
-    struct Factor f[100];
-    int cnt = 0;
+    struct F a[100];
 
     for (int i = 2; i * i <= n; i++) {
         if (n % i == 0) {
-            f[cnt].prime = i;
-            f[cnt].exp = 0;
+            a[c].p = i;
+            a[c].e = 0;
             while (n % i == 0) {
-                f[cnt].exp++;
-                n = n / i;
+                a[c].e++;
+                n /= i;
             }
-            cnt++;
+            c++;
         }
     }
 
     if (n > 1) {
-        f[cnt].prime = n;
-        f[cnt].exp = 1;
-        cnt++;
+        a[c].p = n;
+        a[c].e = 1;
+        c++;
     }
 
-    for (int i = 0; i < cnt; i++) {
+    for (int i = 0; i < c; i++) {
         if (i > 0) printf(" * ");
-        printf("%d^%d", f[i].prime, f[i].exp);
+        printf("%d^%d", a[i].p, a[i].e);
     }
     printf("\n");
 
@@ -42,8 +40,7 @@ int main() {
 
 /*
 Time Complexity: O(sqrt(n))
-   - The outer for loop runs from i=2 to sqrt(n)
-   - For each i, the while loop divides n by i
-   - Total divisions across all iterations is at most log(n)
-   - Overall: O(sqrt(n) + log(n)) = O(sqrt(n))
+   - The for loop runs from i=2 to sqrt(n)
+   - The while loop divides n, total log(n) divisions
+   - Overall: O(sqrt(n))
 */
