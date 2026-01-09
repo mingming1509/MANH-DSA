@@ -44,19 +44,19 @@ int main() {
 }
 
 /*
-1. Data Structure (1 pt):
+1. Data Structure :
    struct Node {
        char op;            // operation: L=LOAD, S=STORE, A=AND, O=OR
        struct Node *left;  // pointer to left child (0 branch)
        struct Node *right; // pointer to right child (1 branch)
    };
 
-2. Time Complexity of Decoding (1 pt): O(k)
+2. Time Complexity of Decoding : O(k)
    - k is the length of the binary code
    - Each bit requires one step from parent to child
    - Total: O(k)
 
-3. Rules for Adding/Removing Operations (2 pts):
+3. Rules for Adding/Removing Operations:
    - Operations must be at leaf nodes only
    - No code can be prefix of another code
    - Internal nodes must have exactly 2 children
