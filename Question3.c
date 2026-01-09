@@ -2,64 +2,56 @@
 #include <stdlib.h>
 
 struct Node {
-    char op;
-    struct Node *left;
-    struct Node *right;
+    char v;
+    struct Node *l;
+    struct Node *r;
 };
 
-struct Node* createNode(char op) {
-    struct Node *node = (struct Node*)malloc(sizeof(struct Node));
-    node->op = op;
-    node->left = NULL;
-    node->right = NULL;
-    return node;
+struct Node* newNode(char v) {
+    struct Node *n = (struct Node*)malloc(sizeof(struct Node));
+    n->v = v;
+    n->l = NULL;
+    n->r = NULL;
+    return n;
 }
 
 int main() {
-    struct Node *root = createNode(' ');
-    root->left = createNode(' ');
-    root->right = createNode(' ');
-    root->left->left = createNode('L');
-    root->left->right = createNode('S');
-    root->right->left = createNode('A');
-    root->right->right = createNode('O');
+    struct Node *root = newNode(' ');
+    root->l = newNode(' ');
+    root->r = newNode(' ');
+    root->l->l = newNode('L');
+    root->l->r = newNode('S');
+    root->r->l = newNode('A');
+    root->r->r = newNode('O');
 
-    char code[10];
-    scanf("%s", code);
+    char s[10];
+    scanf("%s", s);
 
     struct Node *cur = root;
-    for (int i = 0; code[i] != '\0'; i++) {
-        if (code[i] == '0')
-            cur = cur->left;
+    for (int i = 0; s[i]; i++) {
+        if (s[i] == '0')
+            cur = cur->l;
         else
-            cur = cur->right;
+            cur = cur->r;
     }
 
-    if (cur->op == 'L') printf("LOAD\n");
-    else if (cur->op == 'S') printf("STORE\n");
-    else if (cur->op == 'A') printf("AND\n");
-    else if (cur->op == 'O') printf("OR\n");
+    if (cur->v == 'L') printf("LOAD\n");
+    else if (cur->v == 'S') printf("STORE\n");
+    else if (cur->v == 'A') printf("AND\n");
+    else if (cur->v == 'O') printf("OR\n");
 
     return 0;
 }
 
 /*
 1. Data Structure (1 pt):
-   struct Node {
-       char op;            // operation: L=LOAD, S=STORE, A=AND, O=OR
-       struct Node *left;  // pointer to left child (0 branch)
-       struct Node *right; // pointer to right child (1 branch)
-   };
+   struct Node { char v; Node *l; Node *r; };
 
-2. Time Complexity of Decoding (1 pt): O(k)
-   - k is the length of the binary code
-   - Each bit requires one step from parent to child
-   - Total: O(k)
+2. Time Complexity (1 pt): O(k)
+   - k = code length, one step per bit
 
-3. Rules for Adding/Removing Operations (2 pts):
-   - Operations must be at leaf nodes only
-   - No code can be prefix of another code
-   - Internal nodes must have exactly 2 children
-   - When adding: expand a leaf into internal node with 2 children
-   - When removing: if sibling is leaf, merge parent with sibling
+3. Rules for Adding/Removing (2 pts):
+   - Operations only at leaf nodes
+   - No code is prefix of another
+   - Internal nodes have 2 children
 */
