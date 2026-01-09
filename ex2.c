@@ -1,8 +1,11 @@
-/*
- */
 #include <stdio.h>
 int searchBlock(int arr[], int x, int first, int last, int nblocks)
 {
+    // base case
+    if (first > last)
+    {
+        return -1;
+    }
 
     int len = (last - first) / nblocks;
     if (len == 0)
@@ -11,9 +14,14 @@ int searchBlock(int arr[], int x, int first, int last, int nblocks)
     }
     for (int i = 0; i < nblocks; i++)
     {
+        int next_index = first + (i + 1) * len;
+        if (next_index > last)
+        {
+            next_index = last;
+        }
         if ((arr[first + i * len] <= x) && (x <= arr[first + (i + 1) * len]))
         {
-            return searchBlock(arr, x, first + i * len, first + (i + 1) * len, nblocks);
+            return searchBlock(arr, x, first + i * len, next_index, nblocks);
         }
     }
     return -1;
