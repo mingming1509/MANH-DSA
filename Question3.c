@@ -1,21 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node {
+struct Node
+{
     char v;
     struct Node *l;
     struct Node *r;
 };
 
-struct Node* newNode(char v) {
-    struct Node *n = (struct Node*)malloc(sizeof(struct Node));
+struct Node *newNode(char v)
+{
+    struct Node *n = (struct Node *)malloc(sizeof(struct Node));
     n->v = v;
     n->l = NULL;
     n->r = NULL;
     return n;
 }
 
-int main() {
+int main()
+{
     struct Node *root = newNode(' ');
     root->l = newNode(' ');
     root->r = newNode(' ');
@@ -28,17 +31,22 @@ int main() {
     scanf("%s", s);
 
     struct Node *cur = root;
-    for (int i = 0; s[i]; i++) {
+    for (int i = 0; s[i]; i++)
+    {
         if (s[i] == '0')
             cur = cur->l;
         else
             cur = cur->r;
     }
 
-    if (cur->v == 'L') printf("LOAD\n");
-    else if (cur->v == 'S') printf("STORE\n");
-    else if (cur->v == 'A') printf("AND\n");
-    else if (cur->v == 'O') printf("OR\n");
+    if (cur->v == 'L')
+        printf("LOAD\n");
+    else if (cur->v == 'S')
+        printf("STORE\n");
+    else if (cur->v == 'A')
+        printf("AND\n");
+    else if (cur->v == 'O')
+        printf("OR\n");
 
     return 0;
 }
